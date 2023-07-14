@@ -11,7 +11,7 @@ master_repo_name="DataViz-Lesson-Plans/"
 lesson_directory="01-Lesson-Plans/"
 homework_directory="02-Homework/"
 canvas_directory="04-Canvas/"
-week_directory="09-SQL"
+week_directory="09-SQL/"
 day="1"
 is_solutions=false
 
