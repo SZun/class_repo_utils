@@ -21,11 +21,11 @@ lesson_week_directory="$lesson_directory$week_directory"
 
 class_repo_directory="$root_directory$class_repo_name"
 class_lesson_week_directory="$class_repo_directory$lesson_week_directory"
-class_lesson_day_directory="$class_lesson_week_directory$day"
+class_lesson_day_directory="$class_lesson_week_directory/$day"
 class_homework_directory="$class_repo_directory$homework_directory"
 
 master_repo_directory="$root_directory$master_repo_name"
-master_lesson_day_directory="$master_repo_directory$lesson_week_directory$day"
+master_lesson_day_directory="$master_repo_directory$lesson_week_directory/$day"
 
 
 # Change directory into your local class repo and pull from main branch
@@ -37,7 +37,7 @@ if [ ! -d "$class_lesson_week_directory" ];
 then
 
     # Create lesson directory
-    # mkdir $class_lesson_week_directory
+    mkdir $class_lesson_week_directory
 
     # Copy/Paste current week homework directory
     cp -r "$master_repo_directory$homework_directory$week_directory" $class_homework_directory
@@ -55,17 +55,19 @@ fi
 #     rm -rf "${class_lesson_day_directory}"
 # fi
 
-# # Copy/Paste folder
-# cp -r $master_lesson_day_directory $class_lesson_week_directory
+# Copy/Paste folder
+cp -r $master_lesson_day_directory $class_lesson_week_directory
 
-# # Check if not adding solutions
-# if [ "$is_solutions" = false ]; 
-# then
-#     # Delete student student solved folders
-#     rm -rf "${class_lesson_day_directory}/Activities/**Stu**/Solved"
-# fi
+# Check if not adding solutions
+if [ "$is_solutions" = false ]; 
+then
+    # Delete student student solved folders
+    rm -rf "${class_lesson_day_directory}"/Activities/**Stu**/Solved
+    # Delete student partner solved folders
+    rm -rf "${class_lesson_day_directory}"/Activities/**Par**/Solved
+fi
 
 # # Delete LessonPlan.md file
-# rm -rf "${class_lesson_day_directory}/LessonPlan.md"
+rm -rf "${class_lesson_day_directory}/LessonPlan.md"
 
 # cd $class_repo_directory && git status
