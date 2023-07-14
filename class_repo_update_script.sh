@@ -32,7 +32,7 @@ master_lesson_day_directory="${master_repo_directory}${lesson_week_directory}${d
 cd "${root_directory}${class_repo_name}"
 
 # Pull current version of main
-git pull
+git pull origin main
 
 ###### This section is for adding content to your local repository and deleting sensitive files/folders ######
 
@@ -82,7 +82,7 @@ fi
 git commit -m "${message}"
 
 # Push changes
-git push script_testing
+git push -u origin script_testing
 
 ###### This section is to reset the class repo ######
 
