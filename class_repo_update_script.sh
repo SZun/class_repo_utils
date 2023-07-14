@@ -12,8 +12,8 @@ lesson_directory="01-Lesson-Plans/"
 homework_directory="02-Homework/"
 canvas_directory="04-Canvas/"
 week_directory="09-SQL"
-day="1"
-is_solutions=false
+day="3"
+is_solutions=true
 
 
 ## Path variables
@@ -67,7 +67,10 @@ then
     rm -rf "${class_lesson_day_directory}"/Activities/**Par**/Solved
 fi
 
-# # Delete LessonPlan.md file
+# Delete Lesson Plan
 rm -rf "${class_lesson_day_directory}/LessonPlan.md"
+# Delete Time Tracker
+rm -rf "${class_lesson_day_directory}/TimeTracker.xlsx"
 
+# Add commit and push changes
 # cd $class_repo_directory && git status
