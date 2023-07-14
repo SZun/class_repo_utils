@@ -12,8 +12,8 @@ lesson_directory="01-Lesson-Plans/"
 homework_directory="02-Homework/"
 canvas_directory="04-Canvas/"
 week_directory="09-SQL"
-day="3"
-is_solutions=true
+day="1"
+is_solutions=false
 
 
 ## Path variables
@@ -72,5 +72,17 @@ rm -rf "${class_lesson_day_directory}/LessonPlan.md"
 # Delete Time Tracker
 rm -rf "${class_lesson_day_directory}/TimeTracker.xlsx"
 
+
+
+content_type="Lessons"
+
+if [ "$is_solutions" = true ]; 
+then
+  content_type="Solutions"
+elif [ "$day" = "1" ]
+then
+  content_type="Lessons, Homework, Canvas"
+fi
+
 # Add commit and push changes
-# cd $class_repo_directory && git status
+cd $class_repo_directory && git add -A && git commit -m "Week ${week_directory} Day ${day} ${content_type}" && git push
