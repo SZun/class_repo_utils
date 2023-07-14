@@ -42,18 +42,18 @@ then
     # Copy/Paste current week homework directory
     cp -r "$master_repo_directory$homework_directory$week_directory" $class_homework_directory
     # Delete homework solution directory
-    rm -rf "${class_homework_directory}${week_directory}/"Solutio*
+    rm -rf "${class_homework_directory}${week_directory}/"Solutio**
 
     # Copy/Paste current week Canvas directory
     cp -r "$master_repo_directory$canvas_directory$week_directory" "$class_repo_directory$canvas_directory$week_directory"
 fi
 
-# # Check if adding solutions
-# if [ "$is_solutions" = true ]; 
-# then
-#     # Delete current day directory
-#     rm -rf "${class_lesson_day_directory}"
-# fi
+# Check if adding solutions
+if [ "$is_solutions" = true ]; 
+then
+    # Delete current day directory
+    rm -rf "${class_lesson_day_directory}"
+fi
 
 # Copy/Paste folder
 cp -r $master_lesson_day_directory $class_lesson_week_directory
