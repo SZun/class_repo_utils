@@ -41,8 +41,8 @@ git pull origin main
 # Check if lesson directory deos not exists
 if [ ! -d "$class_lesson_directory" ]; then
     # Create lesson directory
-    mkdir $class_lesson_directory
-
+    # mkdir $class_lesson_directory
+    echo $class_lesson_directory
     # Copy/Paste current week homework directory
     cp -r "${master_repo_directory}${homework_directory}${week_directory}" $class_homework_directory
     # Delete current week homework solutions
