@@ -18,10 +18,12 @@ is_solutions=false
 
 ## Path variables
 lesson_week_directory="${lesson_directory}${week_directory}"
+
 class_repo_directory="${root_directory}${class_repo_name}"
 class_lesson_directory="${class_repo_directory}${lesson_week_directory}"
 class_lesson_day_directory="${class_lesson_directory}${day}"
 class_homework_directory="${class_repo_directory}${homework_directory}"
+
 master_repo_directory="${root_directory}${master_repo_name}"
 master_lesson_day_directory="${master_repo_directory}${lesson_week_directory}${day}"
 
