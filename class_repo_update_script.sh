@@ -74,7 +74,7 @@ rm -rf "${class_lesson_day_directory}/LessonPlan.md"
 git add -A
 
 # Set commit message
-message = "${week} Day ${day} content"
+message = "${week} Day ${day} Content"
 if [ "$is_solutions" = true ] ; then
     message = "${message} Solutions"
 fi
