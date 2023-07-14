@@ -4,7 +4,7 @@
 # Script for updating class repo
 ##########################################################
 
-# Config variablesroot_directory
+# Config variables
 root_directory="${HOME}/Documents/repos/UT-A-Data/"
 class_repo_name="UTA-VIRT-DATA-PT-06-2023-U-LOLC/"
 master_repo_name="DataViz-Lesson-Plans/"
