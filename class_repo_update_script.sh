@@ -82,7 +82,7 @@ fi
 git commit -m "${message}"
 
 # Push changes
-git push -u origin main
+git push
 
 ###### This section is to reset the class repo ######
 
