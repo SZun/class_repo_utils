@@ -14,7 +14,8 @@ master_repo_name="DataViz-Lesson-Plans/"
 lesson_directory="01-Lesson-Plans/"
 homework_directory="02-Homework/"
 canvas_directory="04-Canvas/"
-week_directory=${week_names[$1-1]}
+week=$1
+week_directory=${week_names[week-1]}
 day=$2
 is_solutions=false
 
@@ -39,7 +40,6 @@ content_type="Lessons"
 
 
 set_content_type() {
-
   # Check if adding solutions
   if [ "$is_solutions" = true ] 
   then
@@ -53,7 +53,7 @@ set_content_type() {
 }
 
 add_week () {
-      # Create lesson directory
+    # Create lesson directory
     mkdir $class_lesson_week_directory
 
     # Copy/Paste current week homework directory
@@ -63,6 +63,18 @@ add_week () {
 
     # Copy/Paste current week Canvas directory
     cp -r "$master_repo_directory$canvas_directory$week_directory" "$class_repo_directory$canvas_directory$week_directory"
+}
+
+reset_path_variables() {
+  lesson_week_directory="$lesson_directory$week_directory"
+
+  class_repo_directory="$root_directory$class_repo_name"
+  class_lesson_week_directory="$class_repo_directory$lesson_week_directory"
+  class_lesson_day_directory="$class_lesson_week_directory/$day"
+  class_homework_directory="$class_repo_directory$homework_directory"
+
+  master_repo_directory="$root_directory$master_repo_name"
+  master_lesson_day_directory="$master_repo_directory$lesson_week_directory/$day"
 }
 
 add_lessons () {
@@ -85,25 +97,28 @@ add_lessons () {
 }
 
 set_next_day() {
-  if [ "$is_solutions" = true ] 
+  if [ "$day" == "3" ]
   then
-      if [ "$day" == "3" ]
-      then
-        week_directory=${week_names[$1]}
-        day="1"
-      else
-        day=expr $day + 1
-      fi
+    week_directory=${week_names[$week]}
+    day="1"
+    reset_path_variables
+    add_week
+  else
+    day=$((day+1))
   fi
-
-    is_solutions=false
-    add_lessons
+  reset_path_variables
+  is_solutions=false
+  set_content_type
+  add_lessons
 }
 
-set_content_type
+# Add commit and push changes
+add_commit_push() {
+  cd $class_repo_directory && git add -A && git commit -m "Week ${week_directory} Day ${day} ${content_type}" && git push
+}
 
 # Change directory into your local class repo and pull from main branch
-cd $class_repo_directory && git pull
+# cd $class_repo_directory && git pull
 
 # Check if lesson directory deos not exists
 if [ ! -d "$class_lesson_week_directory" ] 
@@ -111,8 +126,14 @@ then
   add_week
 fi
 
+set_content_type
 add_lessons
-set_next_day
+add_commit_push
 
-# Add commit and push changes
-cd $class_repo_directory && git add -A && git commit -m "Week ${week_directory} Day ${day} ${content_type}" && git push
+if [ "$is_solutions" = true ] 
+then
+  set_next_day
+fi
+
+set_content_type
+add_commit_push
