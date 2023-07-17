@@ -49,6 +49,8 @@ set_content_type() {
   elif [ "$day" = "1" ]
   then
     content_type="Lessons, Homework, Canvas"
+  else
+    content_type="Lessons"
   fi
 }
 
@@ -106,10 +108,12 @@ set_next_day() {
   else
     day=$((day+1))
   fi
+
   reset_path_variables
   is_solutions=false
   set_content_type
   add_lessons
+  add_commit_push
 }
 
 # Add commit and push changes
@@ -129,10 +133,5 @@ fi
 set_content_type
 add_lessons
 add_commit_push
+set_next_day
 
-if [ "$is_solutions" = true ] 
-then
-  set_next_day
-fi
-
-add_commit_push
