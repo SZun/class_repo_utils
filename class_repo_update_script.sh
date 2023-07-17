@@ -19,7 +19,7 @@ day=$2
 is_solutions=false
 
 
-if [ $3 = "1" ];
+if [ $3 = "1" ]
 then
   is_solutions=true
 fi
@@ -41,7 +41,7 @@ content_type="Lessons"
 set_content_type() {
 
   # Check if adding solutions
-  if [ "$is_solutions" = true ]; 
+  if [ "$is_solutions" = true ] 
   then
       # Delete current day directory
       rm -rf "${class_lesson_day_directory}"
@@ -70,7 +70,7 @@ add_lessons () {
   cp -r $master_lesson_day_directory $class_lesson_week_directory
 
   # Check if not adding solutions
-  if [ "$is_solutions" = false ]; 
+  if [ "$is_solutions" = false ] 
   then
       # Delete student student solved folders
       rm -rf "${class_lesson_day_directory}"/Activities/**Stu**/Solved
@@ -84,18 +84,35 @@ add_lessons () {
   rm -rf "${class_lesson_day_directory}/TimeTracker.xlsx"
 }
 
+set_next_day() {
+  if [ "$is_solutions" = true ] 
+  then
+      if [ "$day" == "3" ]
+      then
+        week_directory=${week_names[$1]}
+        day="1"
+      else
+        day=expr $day + 1
+      fi
+  fi
+
+    is_solutions=false
+    add_lessons
+}
+
 set_content_type
 
 # Change directory into your local class repo and pull from main branch
 cd $class_repo_directory && git pull
 
 # Check if lesson directory deos not exists
-if [ ! -d "$class_lesson_week_directory" ]; 
+if [ ! -d "$class_lesson_week_directory" ] 
 then
   add_week
 fi
 
 add_lessons
+set_next_day
 
 # Add commit and push changes
 cd $class_repo_directory && git add -A && git commit -m "Week ${week_directory} Day ${day} ${content_type}" && git push
