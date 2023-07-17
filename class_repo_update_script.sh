@@ -17,12 +17,12 @@ canvas_directory="04-Canvas/"
 week=$1
 week_directory=${week_names[week-1]}
 day=$2
-is_solutions=false
+is_solutions=true
 
 
-if [ $3 = "1" ]
+if [ ! -z "$3" ]
 then
-  is_solutions=true
+  is_solutions=false
 fi
 
 ## Path variables
@@ -135,5 +135,4 @@ then
   set_next_day
 fi
 
-set_content_type
 add_commit_push
