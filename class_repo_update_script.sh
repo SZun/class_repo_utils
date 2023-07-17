@@ -18,6 +18,7 @@ week_directory=${week_names[$1-1]}
 day=$2
 is_solutions=false
 
+
 if [ $3 = "1" ];
 then
   is_solutions=true
@@ -34,16 +35,25 @@ class_homework_directory="$class_repo_directory$homework_directory"
 master_repo_directory="$root_directory$master_repo_name"
 master_lesson_day_directory="$master_repo_directory$lesson_week_directory/$day"
 
-
-# Change directory into your local class repo and pull from main branch
-cd $class_repo_directory && git pull origin main
+content_type="Lessons"
 
 
-# Check if lesson directory deos not exists
-if [ ! -d "$class_lesson_week_directory" ]; 
-then
+set_content_type() {
 
-    # Create lesson directory
+  # Check if adding solutions
+  if [ "$is_solutions" = true ]; 
+  then
+      # Delete current day directory
+      rm -rf "${class_lesson_day_directory}"
+      content_type="Solutions"
+  elif [ "$day" = "1" ]
+  then
+    content_type="Lessons, Homework, Canvas"
+  fi
+}
+
+add_week () {
+      # Create lesson directory
     mkdir $class_lesson_week_directory
 
     # Copy/Paste current week homework directory
@@ -53,43 +63,39 @@ then
 
     # Copy/Paste current week Canvas directory
     cp -r "$master_repo_directory$canvas_directory$week_directory" "$class_repo_directory$canvas_directory$week_directory"
+}
+
+add_lessons () {
+  # Copy/Paste folder
+  cp -r $master_lesson_day_directory $class_lesson_week_directory
+
+  # Check if not adding solutions
+  if [ "$is_solutions" = false ]; 
+  then
+      # Delete student student solved folders
+      rm -rf "${class_lesson_day_directory}"/Activities/**Stu**/Solved
+      # Delete student partner solved folders
+      rm -rf "${class_lesson_day_directory}"/Activities/**Par**/Solved
+  fi
+
+  # Delete Lesson Plan
+  rm -rf "${class_lesson_day_directory}/LessonPlan.md"
+  # Delete Time Tracker
+  rm -rf "${class_lesson_day_directory}/TimeTracker.xlsx"
+}
+
+set_content_type
+
+# Change directory into your local class repo and pull from main branch
+cd $class_repo_directory && git pull
+
+# Check if lesson directory deos not exists
+if [ ! -d "$class_lesson_week_directory" ]; 
+then
+  add_week
 fi
 
-# Check if adding solutions
-if [ "$is_solutions" = true ]; 
-then
-    # Delete current day directory
-    rm -rf "${class_lesson_day_directory}"
-fi
-
-# Copy/Paste folder
-cp -r $master_lesson_day_directory $class_lesson_week_directory
-
-# Check if not adding solutions
-if [ "$is_solutions" = false ]; 
-then
-    # Delete student student solved folders
-    rm -rf "${class_lesson_day_directory}"/Activities/**Stu**/Solved
-    # Delete student partner solved folders
-    rm -rf "${class_lesson_day_directory}"/Activities/**Par**/Solved
-fi
-
-# Delete Lesson Plan
-rm -rf "${class_lesson_day_directory}/LessonPlan.md"
-# Delete Time Tracker
-rm -rf "${class_lesson_day_directory}/TimeTracker.xlsx"
-
-
-
-content_type="Lessons"
-
-if [ "$is_solutions" = true ]; 
-then
-  content_type="Solutions"
-elif [ "$day" = "1" ]
-then
-  content_type="Lessons, Homework, Canvas"
-fi
+add_lessons
 
 # Add commit and push changes
 cd $class_repo_directory && git add -A && git commit -m "Week ${week_directory} Day ${day} ${content_type}" && git push
