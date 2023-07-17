@@ -7,10 +7,17 @@
 # Array of week names
 week_names=("01-Excel" "02-VBA-Scripting" "03-Python" "04-Data-Analysis-Pandas" "05-Data-Visualization" "06-Python-APIs" "07-Project-1-Week-1" "08-Project-1-Week-2" "09-SQL" "10-Advanced-SQL" "11-Data-Collection" "12-NoSQL-Databases" "13-Project-2-ETL" "14-Interactive-Visualizations" "15-Mapping" "16-Project-3-Data-Ethics" "17-Project-3-Week-2" "18-Tableau" "19-Unsupervised-Learning" "20-Supervised-Learning" "21-Neural-Networks-Deep-Learning" "22-Big-Data" "23-Project-4-Week-1" "24-Project-4-Week-2")
 
-export HOME=`echo $HOME | sed -e "s/ /\\ /g"`
+# Root Directory
+root_directory="${HOME}/Documents/repos/UT-A-Data/"
+
+# If on Windows
+if [[ $OSTYPE = "mysy" ]]
+then
+  # Set Root Directory
+  root_directory="/c/Users/Samuel Zun/OneDrive/Documents/repos/UT-A-Data/"
+fi
 
 # Global variables
-root_directory="${HOME}OneDrive/Documents/repos/UT-A-Data/"
 class_repo_name="UTA-VIRT-DATA-PT-06-2023-U-LOLC/"
 master_repo_name="DataViz-Lesson-Plans/"
 lesson_directory="01-Lesson-Plans/"
@@ -29,15 +36,15 @@ then
 fi
 
 ## Path variables
-lesson_week_directory="$lesson_directory$week_directory"
+lesson_week_directory="${lesson_directory}${week_directory}"
 
-class_repo_directory="$root_directory$class_repo_name"
-class_lesson_week_directory="$class_repo_directory$lesson_week_directory"
-class_lesson_day_directory="$class_lesson_week_directory/$day"
-class_homework_directory="$class_repo_directory$homework_directory"
+class_repo_directory="${root_directory}${class_repo_name}"
+class_lesson_week_directory="${class_repo_directory}${lesson_week_directory}"
+class_lesson_day_directory="${class_lesson_week_directory}/${day}"
+class_homework_directory="${class_repo_directory}${homework_directory}"
 
-master_repo_directory="$root_directory$master_repo_name"
-master_lesson_day_directory="$master_repo_directory$lesson_week_directory/$day"
+master_repo_directory="${root_directory}${master_repo_name}"
+master_lesson_day_directory="${master_repo_directory}${lesson_week_directory}/${day}"
 
 content_type="Lessons"
 
@@ -65,35 +72,35 @@ set_content_type() {
 # Method to add weekly files
 add_week () {
     # Create lesson directory
-    mkdir $class_lesson_week_directory
+    mkdir "${class_lesson_week_directory}"
 
     # Copy/Paste current week homework directory
-    cp -r "$master_repo_directory$homework_directory$week_directory" $class_homework_directory
+    cp -r "${master_repo_directory}${homework_directory}${week_directory}" "${class_homework_directory}"
     # Delete homework solution directory
     rm -rf "${class_homework_directory}${week_directory}/"Solutio**
 
     # Copy/Paste current week Canvas directory
-    cp -r "$master_repo_directory$canvas_directory$week_directory" "$class_repo_directory$canvas_directory$week_directory"
+    cp -r "${master_repo_directory}${canvas_directory}${week_directory}" "${class_repo_directory}${canvas_directory}${week_directory}"
 }
 
 # Method to reset the path variables
 reset_path_variables() {
   # Set path variables
-  lesson_week_directory="$lesson_directory$week_directory"
+  lesson_week_directory="${lesson_directory}${week_directory}"
 
-  class_repo_directory="$root_directory$class_repo_name"
-  class_lesson_week_directory="$class_repo_directory$lesson_week_directory"
-  class_lesson_day_directory="$class_lesson_week_directory/$day"
-  class_homework_directory="$class_repo_directory$homework_directory"
+  class_repo_directory="${root_directory}${class_repo_name}"
+  class_lesson_week_directory="${class_repo_directory}${lesson_week_directory}"
+  class_lesson_day_directory="${class_lesson_week_directory}/${day}"
+  class_homework_directory="${class_repo_directory}${homework_directory}"
 
-  master_repo_directory="$root_directory$master_repo_name"
-  master_lesson_day_directory="$master_repo_directory$lesson_week_directory/$day"
+  master_repo_directory="${root_directory}${master_repo_name}"
+  master_lesson_day_directory="${master_repo_directory}${lesson_week_directory}/${day}"
 }
 
 # Method to add solutions
 add_lessons () {
   # Copy/Paste folder
-  cp -r $master_lesson_day_directory $class_lesson_week_directory
+  cp -r "${master_lesson_day_directory}" "${class_lesson_week_directory}"
 
   # Check if not adding solutions
   if [ "$is_solutions" = false ] 
@@ -143,14 +150,13 @@ handle_next_day_update() {
 
 # Add commit and push changes
 add_commit_push() {
-  echo $content_type
-  # cd $class_repo_directory && git add -A && git commit -m "Week ${week_directory} Day ${day} ${content_type}" && git push
+  cd "${class_repo_directory}" && git add -A && git commit -m "Week ${week_directory} Day ${day} ${content_type}" && git push
 }
 
 # Method to handle updates/workflow
 handle_updates() {
   # Change directory into your local class repo and pull from main branch
-  cd $class_repo_directory && git pull
+  cd "${class_repo_directory}" && git pull
 
   # Check if lesson directory deos not exists
   if [ ! -d "$class_lesson_week_directory" ] 
