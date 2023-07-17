@@ -7,11 +7,11 @@
 # Array of week names
 week_names=("01-Excel" "02-VBA-Scripting" "03-Python" "04-Data-Analysis-Pandas" "05-Data-Visualization" "06-Python-APIs" "07-Project-1-Week-1" "08-Project-1-Week-2" "09-SQL" "10-Advanced-SQL" "11-Data-Collection" "12-NoSQL-Databases" "13-Project-2-ETL" "14-Interactive-Visualizations" "15-Mapping" "16-Project-3-Data-Ethics" "17-Project-3-Week-2" "18-Tableau" "19-Unsupervised-Learning" "20-Supervised-Learning" "21-Neural-Networks-Deep-Learning" "22-Big-Data" "23-Project-4-Week-1" "24-Project-4-Week-2")
 
-# Check if Windows OS and Root Contains My First Name
+# Checking if OS is Windows and HOME variable contains Samuel
 if [ "$OSTYPE" == "msys" ] && [ "$HOME" = *"Samuel"* ]; 
 then
   # Add backslach after space
-  $HOME = "${$HOME:0:13}\\${$HOME:13:19}"
+  $HOME = "${HOME:0:13}\\${HOME:13:19}"
 fi
 
 # Global variables
