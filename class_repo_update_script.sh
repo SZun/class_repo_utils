@@ -4,7 +4,7 @@
 # Script for updating class repo
 ##########################################################
 
-# Arrays
+# Array of week names
 week_names=("01-Excel" "02-VBA-Scripting" "03-Python" "04-Data-Analysis-Pandas" "05-Data-Visualization" "06-Python-APIs" "07-Project-1-Week-1" "08-Project-1-Week-2" "09-SQL" "10-Advanced-SQL" "11-Data-Collection" "12-NoSQL-Databases" "13-Project-2-ETL" "14-Interactive-Visualizations" "15-Mapping" "16-Project-3-Data-Ethics" "17-Project-3-Week-2" "18-Tableau" "19-Unsupervised-Learning" "20-Supervised-Learning" "21-Neural-Networks-Deep-Learning" "22-Big-Data" "23-Project-4-Week-1" "24-Project-4-Week-2")
 
 # Config variables
@@ -14,12 +14,14 @@ master_repo_name="DataViz-Lesson-Plans/"
 lesson_directory="01-Lesson-Plans/"
 homework_directory="02-Homework/"
 canvas_directory="04-Canvas/"
-week_directory=${week_names[$2]}
-day=$1
+week_directory=${week_names[$1-1]}
+day=$2
 is_solutions=false
 
-
-
+if [ $3 = "1" ];
+then
+  is_solutions=true
+fi
 
 ## Path variables
 lesson_week_directory="$lesson_directory$week_directory"
