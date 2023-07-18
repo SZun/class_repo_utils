@@ -18,8 +18,8 @@ then
 fi
 
 # Global variables
-class_repo_name="UTA-VIRT-DATA-PT-06-2023-U-LOLC/"
-master_repo_name="DataViz-Lesson-Plans/"
+class_repo_directory="UTA-VIRT-DATA-PT-06-2023-U-LOLC/"
+master_repo_directory="DataViz-Lesson-Plans/"
 lesson_directory="01-Lesson-Plans/"
 homework_directory="02-Homework/"
 canvas_directory="04-Canvas/"
@@ -38,12 +38,12 @@ fi
 ## Path variables
 lesson_week_directory="${lesson_directory}${week_directory}"
 
-class_repo_directory="${root_directory}${class_repo_name}"
+class_repo_directory="${root_directory}${class_repo_directory}"
 class_lesson_week_directory="${class_repo_directory}${lesson_week_directory}"
 class_lesson_day_directory="${class_lesson_week_directory}/${day}"
 class_homework_directory="${class_repo_directory}${homework_directory}"
 
-master_repo_directory="${root_directory}${master_repo_name}"
+master_repo_directory="${root_directory}${master_repo_directory}"
 master_lesson_day_directory="${master_repo_directory}${lesson_week_directory}/${day}"
 
 content_type="Lessons"
@@ -88,12 +88,12 @@ reset_path_variables() {
   # Set path variables
   lesson_week_directory="${lesson_directory}${week_directory}"
 
-  class_repo_directory="${root_directory}${class_repo_name}"
+  class_repo_directory="${root_directory}${class_repo_directory}"
   class_lesson_week_directory="${class_repo_directory}${lesson_week_directory}"
   class_lesson_day_directory="${class_lesson_week_directory}/${day}"
   class_homework_directory="${class_repo_directory}${homework_directory}"
 
-  master_repo_directory="${root_directory}${master_repo_name}"
+  master_repo_directory="${root_directory}${master_repo_directory}"
   master_lesson_day_directory="${master_repo_directory}${lesson_week_directory}/${day}"
 }
 
