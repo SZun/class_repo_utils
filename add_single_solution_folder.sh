@@ -24,7 +24,7 @@ lesson_directory="01-Lesson-Plans/"
 week=$1
 week_directory=${week_names[week-1]}
 day=$2
-solution_number=$3
+activity_name=$3
 
 ## Path variables
 lesson_week_directory="${lesson_directory}${week_directory}"
@@ -36,13 +36,13 @@ class_repo_directory="${root_directory}${class_repo_directory}"
 # master_repo_directory="${root_directory}${master_repo_directory}"
 # master_lesson_day_directory="${master_repo_directory}${lesson_week_directory}/${day}"
 
-master_solution_path="${root_directory}${master_repo_directory}${lesson_week_directory}/${day}/Activities/${solution_number}-Stu_**/Solved"
-class_activity_path="${root_directory}${class_repo_directory}${lesson_week_directory}/${day}/Activities/${solution_number}-Stu_**/"
+master_solution_path="${root_directory}${master_repo_directory}${lesson_week_directory}/${day}/Activities/${activity_name}/Solved/"
+class_activity_path="${root_directory}${class_repo_directory}${lesson_week_directory}/${day}/Activities/${activity_name}/"
 
 cp -r "${master_solution_path}" "${class_activity_path}"
 
-echo $master_solution_path
-echo $class_activity_path
+echo "${master_solution_path}"
+echo "${class_activity_path}"
 
 # cd "${class_repo_directory}" && git status && git add -A && git stash && git stash drop
 
