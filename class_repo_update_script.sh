@@ -10,7 +10,7 @@ week_names=("01-Excel" "02-VBA-Scripting" "03-Python" "04-Data-Analysis-Pandas" 
 # Root Directory
 root_directory="/c/Users/Samuel Zun/OneDrive/Documents/repos/UT-A-Data/"
 
-# If on Windows
+# If on Mac
 if [[ $OSTYPE = *"darwin"* ]]
 then
   # Set Root Directory
